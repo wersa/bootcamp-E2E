@@ -1,20 +1,18 @@
 
 Feature: Bootcamp E2E
 
-  E2E
-
   Background: 
-    Given Open the home page
-    * Close the promo banner if it appears
+    Given the user has opened the home page
+    * the user closed the promo banner if it was displayed
 
   @searchBar
-  Scenario: Search bar
-    When Entry the word "Windows" in the search bar (top middle)
-    * Click the search
-    Then Check that at least one item appears
+  Scenario: Search items with search bar
+    When the user enters the word "Windows" in the search bar
+    * the user clicks the search button icon
+    Then at least one item is shown on the results page
 
   @logoButton
-  Scenario: Internet shop logo button
-    When Open "Today's Best Deals" tab
-    * Click on the Internet shop logo (top right corner)
-    Then Check that the main page opened
+  Scenario: Internet shop logo button navigates to the main page
+    When the user opens "Today's Best Deals" tab
+    * the user clicks on the Internet shop logo
+    Then the user should be redirected to the home page

@@ -1,38 +1,37 @@
 const { Given, When, Then } = require("@wdio/cucumber-framework");
 
-// Background given
-
-Given("Open the home page", async () => {
+Given("the user has opened the home page", async () => {
   await browser.url(`https://www.newegg.com`);
 });
 
-Given("Close the promo banner if it appears", async () => {
-  const modal = $(".modal-content");
+Given("the user closed the promo banner if it was displayed", async () => {
   const closeBtn = $(".modal-content > button");
+  let isDisplayed = false;
 
   try {
-    await modal.waitForDisplayed({
-      timeoutMsg: "popup is not displayed",
+    await closeBtn.waitForDisplayed({
+      timeoutMsg: "promo banner is not displayed",
     });
-
-    await closeBtn.click();
+    
+    isDisplayed = true;
   } catch (msg) {
     console.log(msg);
   }
+
+  isDisplayed && await closeBtn.click();
 });
 
-// Search bar
 
-When("Entry the word {string} in the search bar \\(top middle)", async (searchWord) => {
+When("the user enters the word {string} in the search bar", async (searchWord) => {
     await $('input[title="Search Site"]').setValue(searchWord);
   }
 );
 
-When("Click the search", async () => {
+When("the user clicks the search button icon", async () => {
   await $("div.header2021-search-button > button").click();
 });
 
-Then("Check that at least one item appears", async () => {
+Then("at least one item is shown on the results page", async () => {
   const itemCells = $(".list-tools-bar + .item-cells-wrap");
 
   await itemCells.waitForDisplayed({
@@ -42,17 +41,16 @@ Then("Check that at least one item appears", async () => {
   await expect(itemCells).toHaveChildren({ gte: 1 });
 });
 
-// Internet shop logo button
 
-When("Open {string} tab", async (tab) => {
+When("the user opens {string} tab", async (tab) => {
   await $(`.swiper-wrapper  a[title="${tab}"]`).click();
 });
 
-When("Click on the Internet shop logo \\(top right corner)", async () => {
+When("the user clicks on the Internet shop logo", async () => {
   await $(".header2021-logo > a > img").click();
 });
 
-Then("Check that the main page opened", async () => {
+Then("the user should be redirected to the home page", async () => {
   const url = await browser.getUrl();
   await expect(url).toBe(`https://www.newegg.com/`);
 });
