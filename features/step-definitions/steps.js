@@ -6,19 +6,14 @@ Given("the user has opened the home page", async () => {
 
 Given("the user closed the promo banner if it was displayed", async () => {
   const closeBtn = $(".modal-content > button");
-  let isDisplayed = false;
-
+  
   try {
-    await closeBtn.waitForDisplayed({
-      timeoutMsg: "promo banner is not displayed",
-    });
-    
-    isDisplayed = true;
+    await closeBtn.waitForDisplayed();
   } catch (msg) {
     console.log(msg);
   }
 
-  isDisplayed && await closeBtn.click();
+  await closeBtn.isDisplayed() && await closeBtn.click();
 });
 
 
