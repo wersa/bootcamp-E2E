@@ -9,11 +9,10 @@ Given("the user closed the promo banner if it was displayed", async () => {
   
   try {
     await closeBtn.waitForDisplayed();
+    await closeBtn.click();
   } catch (msg) {
     console.log(msg);
   }
-
-  await closeBtn.isDisplayed() && await closeBtn.click();
 });
 
 
